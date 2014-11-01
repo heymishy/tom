@@ -42,9 +42,19 @@ class Role(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255)
 	status = models.CharField(max_length=255)
-
+	performs_func = models.ManyToManyField(Function, through='RoletoFunction')
 	def __str__(self):              # __unicode__ on Python 2
 	    return self.name
+
+class RoletoFunction(models.Model):
+	role = models.ForeignKey(Role)
+	function = models.ForeignKey(Function)
+	name = models.CharField(max_length=255)
+	description = models.CharField(max_length=255)
+	status = models.CharField(max_length=255)
+	allocation = models.IntegerField()
+	def __str__(self):  
+	    return self.name	
 
 class Vision(models.Model):
 	name = models.CharField(max_length=255)
