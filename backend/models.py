@@ -34,7 +34,6 @@ class Function(models.Model):
 	description = models.CharField(max_length=255)
 	status = models.CharField(max_length=255)
 	capability = models.ForeignKey(Capability)
-
 	def __str__(self):              # __unicode__ on Python 2
 	    return self.name
 
