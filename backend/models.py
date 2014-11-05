@@ -33,7 +33,7 @@ class Function(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255)
 	status = models.CharField(max_length=255)
-	capability = models.ManyToManyField(Capability)
+	capability = models.ForeignKey(Capability)
 
 	def __str__(self):              # __unicode__ on Python 2
 	    return self.name

@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255)),
                 ('description', models.CharField(max_length=255)),
                 ('status', models.CharField(max_length=255)),
-                ('capability', models.ManyToManyField(to='backend.Capability')),
+                ('capability', models.ForeignKey(to='backend.Capability')),
             ],
             options={
             },
@@ -107,6 +107,21 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='RoletoFunction',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255)),
+                ('description', models.CharField(max_length=255)),
+                ('status', models.CharField(max_length=255)),
+                ('allocation', models.IntegerField()),
+                ('function', models.ForeignKey(to='backend.Function')),
+                ('role', models.ForeignKey(to='backend.Role')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Vision',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -118,6 +133,12 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='role',
+            name='performs_func',
+            field=models.ManyToManyField(to='backend.Function', through='backend.RoletoFunction'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='capability',
