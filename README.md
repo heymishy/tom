@@ -4,13 +4,13 @@ Target Operating Model (TOM) Platform
 
 First attempt at building a platform for defining business strategy, solving complex problems or simply providing proper context of the problem being solved.
 
-#Longer term vision# 
+##Longer term vision
 
 Change the way software is designed and communicated
 
 From idea/problem to working solution, complete with constant feedback at every step!
 
-#Installation#
+##Installation
 
 Either use a *nix platform or VM, or adapt these instructions for building a djnango project on Windows
 
@@ -33,9 +33,11 @@ mkdir ~/dev/newproject
 cd ~/dev/newproject/
 ```
 make a new virtualenv envrionment
+
 `virtualenv dev-envname`
 
 then everytime you want to activate (enter) the environment use the following:
+
 `source ~/dev/newproject/bin/activate`
 
 this should then change your command prompt to prefix with 'newproject' to confirm it activated properly
@@ -49,4 +51,4 @@ clone the repository from github
 
 and then run the server 
 
-`python manage.py runserver
+`python manage.py runserver`
