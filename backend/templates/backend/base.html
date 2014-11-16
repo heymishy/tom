@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %} <link rel="stylesheet" type="text/css" href="{% static 'backend/style.css' %}" />
+    <title>{% block title %}In Development - TOM{% endblock %}</title>
+    
+    {% load bootstrap3 %}
+    {# Load CSS and JavaScript #}
+    
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<div class="container">
+
+    <div id="sidebar">
+        {% block sidebar %}
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+    <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+    </uL>
+  </div>
+</nav>
+        {% endblock %}
+    </div>
+<div class="row">
+    <div class="col-md-8">    
+        <div id="content">
+        {% block content %}{% endblock %}
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+</div>
+</body>
+</html>

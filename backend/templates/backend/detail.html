@@ -1,0 +1,9 @@
+
+
+<h1>{{ function.name }}</h1>
+<ul>
+{% for role in function.role_set.all %}
+<li>{{ role.name }}  | {{role.perform }} </li>
+{% endfor %}
+
+</ul>

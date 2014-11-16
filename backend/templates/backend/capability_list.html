@@ -1,0 +1,19 @@
+
+{% extends "backend/base.html" %}
+
+{% block title%} Capabilities{% endblock %}
+
+
+{% block content %}
+
+{% if capability_list %}
+	<ul>
+		{% for capability in capability_list %}
+			<li>{{ capability.name }}</a> || {{ capability.description }}</li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<p>No capabilities are available</p>
+{% endif %}
+
+{% endblock %}
