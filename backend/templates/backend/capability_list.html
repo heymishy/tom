@@ -8,8 +8,12 @@
 
 {% if capability_list %}
 	<ul>
-		{% for capability in capability_list %}
-			<li>{{ capability.name }}</a> || {{ capability.description }}</li>
+		{% for cap in capability_list %}
+		<h3>{{ cap.name }} </h3>
+
+		{% for function in cap.function_set.all %}
+			<li>{{ function.name }}</a> || {{ function.description }}</li>
+		{% endfor %}
 		{% endfor %}
 	</ul>
 {% else %}

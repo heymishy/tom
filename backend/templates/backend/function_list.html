@@ -11,6 +11,11 @@
 
 {% if function_list %}
 	<ul>
+	{% for capability in capability_set %}
+
+	{{ capability.name }}
+
+	{% endfor %}
 	{% for function in function_list %}
 
 			<li><a href="/backend/functions/{{ function.id }}/">{{ function.name }}</a> || {{ function.entry_set }} {{ function.role  }}</li>

@@ -24,7 +24,7 @@ class Capability(models.Model):
 	level = models.CharField(max_length=1, choices=LEVELS_CHOICES)
 	
 	domain = models.ManyToManyField(Domain)
-
+	
 	def __str__(self):              # __unicode__ on Python 2
 	    return self.name
 
