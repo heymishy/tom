@@ -7,15 +7,45 @@
 {% block content %}
 
 {% if capability_list %}
-	<ul>
-		{% for cap in capability_list %}
-		<h3>{{ cap.name }} </h3>
+	
+	
+<h1>Capabilities</h1>
+<p>The following lists the capabilities and their associated functions: </p>
+	{% for cap in capability_list %}
 
-		{% for function in cap.function_set.all %}
-			<li>{{ function.name }}</a> || {{ function.description }}</li>
-		{% endfor %}
-		{% endfor %}
-	</ul>
+	<h3> {{ cap.name }} - Level {{cap.level }} </h3>
+	
+		{% if cap.function_set.all %}
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>Function</td>
+				<td>Description</td>
+				<td>Status</td>
+				<td>..</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<tr>
+			
+			{% for function in cap.function_set.all %} 
+				<td> {{ function.name }} </td>
+				<td> {{ function.description }} </td>
+				<td> {{ function.status }} </td>
+				<td> {{ ..}}</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>  
+	</table>
+	{% else %}
+		<P>No functions for this capability</P>
+	{% endif %}
+	
+	{% endfor %}
+
 {% else %}
 	<p>No capabilities are available</p>
 {% endif %}

@@ -14,4 +14,7 @@ urlpatterns = patterns('',
 	# /backend/functions
 	url(r'^capabilities/$', views.CapabilityList.as_view(), name='functions'),
 
+	# /backend/roles
+	url(r'^roles/$', views.RoleList.as_view(), name='roles'),	
+
 )
