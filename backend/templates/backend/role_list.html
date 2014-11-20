@@ -1,0 +1,101 @@
+
+{% extends "backend/base.html" %}
+
+{% block title%} Roles{% endblock %}
+
+
+{% block content %}
+<h3> Roles </h3>
+{% if role_list %}
+
+	<h2>Section 1</h2>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>Role</td>
+					<td>Description</td>
+					<td>Status</td>
+					<td>Performs</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for role in role_list %}	
+				<tr>
+					<td> {{ role.name }} </td>
+					<td> {{ role.description }} </td>
+					<td> {{ role.status }} </td>
+					<td> {% for p in role.performs_func_set.all %} {{ p.name }} {% endfor %} </td>
+				</tr>
+				{% endfor %}
+			</tbody>  
+		</table>
+		<br>
+
+		<h2>Section 2</h2>
+
+		{% for role in role_list %}	
+
+		<p> {{ role.name }} </p> 
+		<p> </p>
+
+		{% if role.roletofunction_set.all %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>Role</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for p in role.roletofunction_set.all %} 
+				<tr>
+					<td> {{ p.name }} </td>
+					<td> {{ p.allocation }} </td>
+				</tr>
+			</tbody>
+		
+		{% endfor %}
+		
+		</table>
+		
+		{% else %}
+
+		<p>No roles for this function.</p>
+		<br>
+
+		{% endif %}
+
+		{% endfor %}
+
+		<h2>Section 3</h2>
+
+		<table class="table table-striped">
+			<thead>
+				<tr> 
+					<td>.</td>
+					{% for role in role_list %}	
+
+						<td> {{ role.name }} </td>
+					
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody> 
+				<tr> 	
+					{% for role in role_list %} {% for p in role.roletofunction_set.all %}
+					<td>  {{ p.name }} </td> 
+					<!-- <td> {{ p.allocation }}</td> --> 
+				</tr>
+					{% endfor %} 
+					{% endfor %}
+				
+			</tbody>	
+		</table>	
+
+{% else %}
+	<p>No roles are available</p>
+{% endif %}
+
+{% endblock %}
