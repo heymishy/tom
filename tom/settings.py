@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'registration',
     'backend',
     
     'debug_toolbar',
@@ -83,9 +83,18 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
 STATIC_URL = '/static/'
+
+
+# Settings for django-registration-redux 1.1 
+# http://django-registration-redux.readthedocs.org/en/latest/
+REGISTRATION_OPEN = True                # If True, users can register
+ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
+LOGIN_REDIRECT_URL = '/backend/capabilties/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/backend/login/'  # The page users are directed to if they are not logged in,
+                                                                # and are trying to access pages requiring authentication
+
 
 # Default settings
 BOOTSTRAP3 = {

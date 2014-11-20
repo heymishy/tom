@@ -1,4 +1,13 @@
 Django==1.7.1
+argparse==1.2.1
+django-bootstrap3==4.11.0
+django-debug-toolbar==1.2.2
+djangorestframework==2.4.3
+pbr==0.10.0
+six==1.8.0
+sqlparse==0.1.13
+stevedore==1.1.0
+virtualenv==1.11.6
+virtualenv-clone==0.2.5
+virtualenvwrapper==4.3.1
 wsgiref==0.1.2
-bootstrap3
-django-debug-toolbar

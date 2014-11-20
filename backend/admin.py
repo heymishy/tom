@@ -25,6 +25,7 @@ class CapabilityAdmin(admin.ModelAdmin):
 		('Status',		{'fields': ['status']}),
 		('Level', 		{'fields': ['level']}),
 		('Domain', 		{'fields': ['domain']}),
+		('Project', 	{'fields': ['project']}),
 		]
 	inlines = [FunctionInline]
 
@@ -36,3 +37,4 @@ admin.site.register(Vision)
 admin.site.register(Principle)
 admin.site.register(Issue)
 admin.site.register(Resource)
+admin.site.register(Project)

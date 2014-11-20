@@ -8,4 +8,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^backend/', include('backend.urls',)),
     url(r'^admin/', include(admin.site.urls)),
+
+    # registration module urls
+    (r'^accounts/', include('registration.backends.simple.urls')),
 )
