@@ -5,6 +5,9 @@
 
 
 {% block content %}
+
+{% block role_list %}
+
 <h3> Roles </h3>
 {% if role_list %}
 
@@ -97,5 +100,7 @@
 {% else %}
 	<p>No roles are available</p>
 {% endif %}
+
+{% endblock %}
 
 {% endblock %}

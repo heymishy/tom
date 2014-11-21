@@ -1,0 +1,43 @@
+
+{% extends "backend/base.html" %}
+
+{% block title%} Projects{% endblock %}
+
+
+{% block content %}
+
+
+	
+<br><br><br>	
+<h1>Projects</h1>
+<p>The following lists the projects available in the application.  </p>
+
+{% if proj_list %}	
+
+
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>#</td>
+				<td>Name</td>
+				<td>Description</td>
+				<td>Status</td>
+			</tr>
+		</thead>
+		<tbody>
+				{% for proj in proj_list %}
+			<tr>
+				<td> {{ proj.project_num }} </td>
+				<td> <a href="{{ proj.id }}" >{{ proj.proj_name }} </a> </td>
+				<td> {{ proj.description }} </td>
+				<td> {{ proj.status }} </td>
+			</tr>
+	
+	{% endfor %}
+
+{% else %}
+	<p>No capabilities are available</p>
+{% endif %}
+
+{% endblock %}

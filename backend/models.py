@@ -9,7 +9,7 @@ STATUS_CHOICES = (
 class Project(models.Model):
 	proj_name = models.CharField(max_length=255, null=True, blank=True)
 	description = models.CharField(max_length=255, null=True, blank=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	project_num = models.DecimalField(null=True, max_digits=5, decimal_places=4, blank=True)
 	
 	def __str__(self): 
@@ -18,7 +18,7 @@ class Project(models.Model):
 class Domain(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	domain_num = models.DecimalField(null=True, max_digits=5, decimal_places=4, blank=True)
 	project = models.ManyToManyField(Project, null=True)
 	
@@ -28,7 +28,7 @@ class Domain(models.Model):
 class Capability(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	capability_num = models.DecimalField(null=True, max_digits=5, decimal_places=4, blank=True)
 	project = models.ManyToManyField(Project, null=True)
 
@@ -39,7 +39,7 @@ class Capability(models.Model):
 		('3', 'Level 3'),
 		)
 
-	level = models.CharField(max_length=1, choices=LEVELS_CHOICES)
+	level = models.CharField(max_length=1, choices=LEVELS_CHOICES, default="Approved")
 	domain = models.ManyToManyField(Domain)
 
 	class Meta:
@@ -52,7 +52,7 @@ class Capability(models.Model):
 class Function(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True)
-	status = models.CharField(max_length=255)
+	status = models.CharField(max_length=255, default="Approved")
 	capability = models.ForeignKey(Capability)
 	function_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 	project = models.ManyToManyField(Project, null=True)
@@ -63,7 +63,7 @@ class Function(models.Model):
 class Role(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	performs_func = models.ManyToManyField(Function, through='RoletoFunction')
 	role_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 
@@ -75,7 +75,7 @@ class RoletoFunction(models.Model):
 	function = models.ForeignKey(Function)
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	allocation = models.DecimalField(max_digits=5, decimal_places=2)
 	roletofunction_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 
@@ -85,7 +85,7 @@ class RoletoFunction(models.Model):
 class Vision(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	owner = models.CharField(max_length=255)
 	vision_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 	project = models.ManyToManyField(Project, null=True)
@@ -96,7 +96,7 @@ class Vision(models.Model):
 class Principle(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	principle_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 	project = models.ManyToManyField(Project, null=True)
 
@@ -118,7 +118,7 @@ class Proces(models.Model):
 class Resource(models.Model):
 	resource_name = models.CharField(max_length=255)
 	title = models.CharField(max_length=255)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	resource_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 
 	def __str__(self):
@@ -127,7 +127,7 @@ class Resource(models.Model):
 class Issue(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True, null=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	issue_num = models.DecimalField(max_digits=5, decimal_places=4, null=True)
 	project = models.ManyToManyField(Project, null=True)
 

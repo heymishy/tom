@@ -5,6 +5,7 @@ from backend.models import *
 class Role2FunctionInline(admin.TabularInline):
 	model = RoletoFunction
 	extra = 2
+	prepopulated_fields = {'name':('function',)}
 
 class RoleAdmin(admin.ModelAdmin):
 	inlines =(Role2FunctionInline, )

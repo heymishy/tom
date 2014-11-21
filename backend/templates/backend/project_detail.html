@@ -1,0 +1,57 @@
+
+{% extends "backend/base.html" %}
+
+{% block title%} Functions{% endblock %}
+
+
+{% block content %}
+
+<br><br><br>
+<div class="page-header">
+	  <h1>Project<small> A view on the current project</small></h1>
+</div>
+
+{% if object %}
+
+<h3>Capabilities for project</h3>
+<p>The following lists the capabilities and their associated functions: </p>
+	{% for cap in object.capability_set.all %}
+
+	<h3> {{ cap.name }}<small> - Level {{cap.level }} </small> </h3> 
+	
+		{% if cap.function_set.all %}
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>Function</td>
+				<td>Description</td>
+				<td>Status</td>
+				<td>..</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<tr>
+			
+			{% for function in cap.function_set.all %} 
+				<td> <a href=" {{ function.id }}"> {{ function.name }} </a> </td>
+				<td> {{ function.description }} </td>
+				<td> {{ function.status }} </td>
+				<td> {{ ..}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>  
+	</table>
+	<a href="/backend/add_capability/">Add new capability</a> <br>
+	{% else %}
+		<P>No functions for this capability</P>
+	{% endif %}
+	
+	{% endfor %}
+
+{% else %}
+	<p>No projects are available</p>
+{% endif %}
+
+{% endblock %}

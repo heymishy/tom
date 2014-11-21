@@ -7,20 +7,23 @@ django.setup()
 from backend.models import Domain, Capability, Function, Role, RoletoFunction, Vision, Principle, Proces, Resource, Issue
 
 def populate():
-	code_cap = add_cat('Manage Code')
+    code_cap = add_cap("Manage Data")
     domain = "Software Development"
+    
+    add_func(name="Extract data",
+    domain=domain,
+    capability="Manage Data")
 
-    add_func(cat=code_cap,
-        domain=domain,
-        name="Create design specification",
-        )
+    add_func(cat="Manage Data",
+    domain=domain,
+    name="Manipulate data")
 
-def add_func(cap, domain, name):
-    f = Function.objects.get_or_create(capability=cap, name=name, description=desc, status="Approved", domain=domain)[0]
+def add_func(name, capability, domain, ):
+    f = Function.objects.get_or_create(capability="Manage Data", name=name, status="Approved", domain=domain)[0]
     return p
 
 def add_cap(name):
-    c = Capability.objects.get_or_create(name=name, status="Approved", project="Product Reporting")[0]
+    c = Capability.objects.get_or_create(name=name, status="Approved")[0]
     return c
 
 def add_domain(name):
@@ -31,9 +34,14 @@ def add_project(name):
     p = Project.objects.get_or_create(name=name)[0]
     return p
 
+def add_role(name):
+    p = Role.objects.get_or_create(name=name)[0]
+    return p
+
+
 # Print out what we have added to the user.
     for c in Capability.objects.all():
-        for p in Function.objects.filter(category=c):
+        for p in Function.objects.filter(capability=c):
             print "- {0} - {1}".format(str(c), str(p))
 
 # Start execution here!
@@ -41,7 +49,7 @@ if __name__ == '__main__':
     print "Starting TOM population script..."
     populate()
 
-
+'''
 "1","Product Development"
 "2","Business Development"
 "5","Service Fund"
@@ -119,7 +127,7 @@ if __name__ == '__main__':
 "2","Business Management"
 "1.1.1","Discuss opportunities"
 "1.1.2","Research market opportunities"
-"1.1.3","Qualify ideas (Product Lab – MA only)"
+"1.1.3","Qualify ideas (Product Lab MA only)"
 "3.2.1","Client data review"
 "3.2.2","Client report template setup"
 "6.3","Manage Report Repository"
@@ -129,3 +137,5 @@ if __name__ == '__main__':
 "7.2.1","Produce GMC reports"
 "7.2.2","Produce board papers"
 "7.2.3","Produce senior mgmt presentations"
+
+'''
