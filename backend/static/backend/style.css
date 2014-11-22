@@ -5,3 +5,6 @@
 	border: solid red 1px;
 
 }
+
+.panel-body { padding: 7px;}
+.panel-heading { padding: 2px, 2px;}

@@ -20,6 +20,10 @@ class FunctionDetail(DetailView):
 	model = Function
 	template_name = 'backend/function_detail.html'
 	context_object_name = 'function'
+	def get_queryset(self):
+		"""return list of functions"""
+		return Function.objects.order_by('id')
+	
 
 class CapabilityList(ListView):
 	model = Capability

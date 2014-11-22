@@ -21,11 +21,17 @@
 			</tr>
 		</thead>
 	<tbody>
+		{% if  function.roletofunction_set.all %}
+		
+		<h3><small>TODO: Need to figure out how to fiter to only roles for current function</small></h3>
+	
+		<br>
 
+		{% endif %}
 		{% for role in function.roletofunction_set.all %}
 			<tr>
 				<td> {{ role.roletofunction_num }} </td>
-				<td> <a href="{{ role.id }}" >{{ role.role }} </a> </td>
+				<td> <a href="{{ role.id }}" >{{ role.name }} </a> </td>
 				<td> {{ role.description }} </td>
 				<td> {{ role.allocation }} </td>
 				<td> {{ role.created_by|capfirst }} </td>

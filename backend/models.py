@@ -65,6 +65,7 @@ class Function(models.Model):
 	status = models.CharField(max_length=255, default="Approved")
 	capability = models.ForeignKey(Capability)
 	function_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
+	performs_role = models.ManyToManyField('Role', through='RoletoFunction', blank=True, null=True)
 	#project = models.ManyToManyField(Project, null=True)
 	created_by = models.ForeignKey(User, default=0)
 

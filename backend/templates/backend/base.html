@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load staticfiles %} <link rel="stylesheet" type="text/css" href="{% static 'backend/style.css' %}" />
+    {% load staticfiles %}
     <title>{% block title %}In Development - TOM{% endblock %}</title>
     
     {% load bootstrap3 %}
@@ -12,6 +12,10 @@
 
     {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
+
+    <script src="{% static "/js/jquery.js" %}"></script>
+    <script src="{% static "/js/backend-ajax.js" %}"></script>
+     <link rel="stylesheet" type="text/css" href="{% static 'backend/style.css' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
