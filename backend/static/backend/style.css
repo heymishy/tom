@@ -1,2 +1,7 @@
 .thead td
 { font-weight: bold; }
+
+.h3 panel-title {
+	border: solid red 1px;
+
+}

@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
+
 from django.db import models
+
 
 STATUS_CHOICES = (
 		('Approved', 'Approved'),
@@ -11,7 +14,8 @@ class Project(models.Model):
 	description = models.CharField(max_length=255, null=True, blank=True)
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	project_num = models.DecimalField(null=True, max_digits=5, decimal_places=4, blank=True)
-	
+	created_by = models.ForeignKey(User, default=0, related_name='created_by')
+	assigned_to = models.ManyToManyField(User, default=0, related_name='assigned_to')
 	def __str__(self): 
 	    return self.proj_name	
 
@@ -21,7 +25,8 @@ class Domain(models.Model):
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	domain_num = models.DecimalField(null=True, max_digits=5, decimal_places=4, blank=True)
 	project = models.ManyToManyField(Project, null=True)
-	
+	created_by = models.ForeignKey(User, default=0)
+
 	def __str__(self): 
 	    return self.name	
 
@@ -29,7 +34,7 @@ class Capability(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.CharField(max_length=255, blank=True)
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
-	capability_num = models.DecimalField(null=True, max_digits=5, decimal_places=4, blank=True)
+	capability_num = models.DecimalField(max_digits=5, decimal_places=2)
 	project = models.ManyToManyField(Project, null=True)
 
 	LEVELS_CHOICES = (
@@ -41,12 +46,17 @@ class Capability(models.Model):
 
 	level = models.CharField(max_length=1, choices=LEVELS_CHOICES, default="Approved")
 	domain = models.ManyToManyField(Domain)
+	created_by = models.ForeignKey(User, default=0)
 
 	class Meta:
 		verbose_name_plural = "Capabilities"
+        ordering = ['id']
 	
 	def __str__(self):
 	    return self.name
+	
+	def get_absolute_url(self):
+		return reverse('project_detail', kwargs={'pk': self.pk})
 
 
 class Function(models.Model):
@@ -55,40 +65,44 @@ class Function(models.Model):
 	status = models.CharField(max_length=255, default="Approved")
 	capability = models.ForeignKey(Capability)
 	function_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
-	project = models.ManyToManyField(Project, null=True)
-	
+	#project = models.ManyToManyField(Project, null=True)
+	created_by = models.ForeignKey(User, default=0)
+
 	def __str__(self):  
 	    return self.name
 
 class Role(models.Model):
 	name = models.CharField(max_length=255)
-	description = models.CharField(max_length=255, blank=True)
+	description = models.CharField(max_length=255, blank=True, null=True)
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
-	performs_func = models.ManyToManyField(Function, through='RoletoFunction')
+	performs_func = models.ManyToManyField(Function, through='RoletoFunction', blank=True, null=True)
 	role_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
-
+	created_by = models.ForeignKey(User, default=0)
+	project = models.ManyToManyField(Project, null=True, blank=True)
+	
 	def __str__(self):  
 	    return self.name
 
 class RoletoFunction(models.Model):
-	role = models.ForeignKey(Role)
-	function = models.ForeignKey(Function)
-	name = models.CharField(max_length=255)
+	role = models.ForeignKey(Role,blank=True, null=True)
+	function = models.ForeignKey(Function, blank=True, null=True)
+	name = models.CharField(max_length=255, blank=True, null=True)
 	description = models.CharField(max_length=255, blank=True)
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
-	allocation = models.DecimalField(max_digits=5, decimal_places=2)
+	allocation = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 	roletofunction_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
-
+	created_by = models.ForeignKey(User, default=0, blank=True, null=True)
 	def __str__(self):  
 	    return self.name	
 
 class Vision(models.Model):
-	name = models.CharField(max_length=255)
+	name = models.CharField(max_length=255, blank=True, null=True)
 	description = models.CharField(max_length=255, blank=True)
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	owner = models.CharField(max_length=255)
 	vision_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
-	project = models.ManyToManyField(Project, null=True)
+	#project = models.ManyToManyField(Project, null=True)
+	created_by = models.ForeignKey(User, default=0)
 
 	def __str__(self):
 	    return self.name
@@ -99,6 +113,7 @@ class Principle(models.Model):
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	principle_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 	project = models.ManyToManyField(Project, null=True)
+	created_by = models.ForeignKey(User, default=0)
 
 	def __str__(self):
 	    return self.name
@@ -108,6 +123,7 @@ class Proces(models.Model):
 	description = models.CharField(max_length=255, blank=True)
 	process_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 	project = models.ManyToManyField(Project, null=True)
+	created_by = models.ForeignKey(User, default=0)
 
 	class Meta:
 		verbose_name_plural = "Processes"
@@ -120,6 +136,8 @@ class Resource(models.Model):
 	title = models.CharField(max_length=255)
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	resource_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
+	created_by = models.ForeignKey(User, default=0)
+	project = models.ManyToManyField(Project, null=True)
 
 	def __str__(self):
 	    return self.name
@@ -130,6 +148,7 @@ class Issue(models.Model):
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	issue_num = models.DecimalField(max_digits=5, decimal_places=4, null=True)
 	project = models.ManyToManyField(Project, null=True)
+	created_by = models.ForeignKey(User, default=0)
 
 	def __str__(self):
 	    return self.name

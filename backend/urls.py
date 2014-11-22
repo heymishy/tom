@@ -6,10 +6,10 @@ urlpatterns = patterns('',
 	url(r'^functions/$', views.FunctionList.as_view(), name='functions'),
 	# /backend/capabilities
 	url(r'^capabilities/$', views.CapabilityList.as_view(), name='functions'),
-	# /backend/add_capability - Add capabilities
-	url(r'^add_capability/$', views.add_capability, name='add_capability'),
+	# /backend/capabilities/add - Add capabilities
+	url(r'^capabilities/add/$', views.Add_Capability.as_view(), name='add_capability'),
 	# /functions/1
-	url(r'^functions/(?P<pk>\d+)/$', views.DetailView.as_view, name='function_detail'),
+	url(r'^projects/(?P<pk>\d+)/functions/(?P<function_id>\d+)/$', views.FunctionDetail.as_view(), name='function_detail'),
 	# /backend/roles
 	url(r'^roles/$', views.RoleList.as_view(), name='roles'),	
 	# /backend/projects

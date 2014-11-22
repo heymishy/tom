@@ -23,6 +23,7 @@
 				<td>Name</td>
 				<td>Description</td>
 				<td>Status</td>
+				<td>Created by</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,6 +33,7 @@
 				<td> <a href="{{ proj.id }}" >{{ proj.proj_name }} </a> </td>
 				<td> {{ proj.description }} </td>
 				<td> {{ proj.status }} </td>
+				<td> {{ proj.created_by }} </td>
 			</tr>
 	
 	{% endfor %}
