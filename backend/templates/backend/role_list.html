@@ -89,6 +89,7 @@
 				<tr> 	
 					{% for role in role_list %} {% for p in role.roletofunction_set.all %}
 					<td>  {{ p.name }} </td> 
+					<td> {{ p.allocation }}	</td>
 					<!-- <td> {{ p.allocation }}</td> --> 
 				</tr>
 					{% endfor %} 

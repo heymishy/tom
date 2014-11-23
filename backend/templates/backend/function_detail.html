@@ -9,6 +9,16 @@
 </div>
 
 {% if function %}
+{{function.capability }}
+
+{% for c in function.capability.project.all %}
+	<p>{{c.proj_name}} || {{c.role}}</p>
+
+	{% for r in c.role_set.all %}
+		<p>{{r.name}}</p>
+	{% endfor %}
+
+{% endfor %}
 
 	<table class="table table-striped">
 		<thead>
@@ -30,6 +40,9 @@
 		{% endif %}
 		{% for role in function.roletofunction_set.all %}
 			<tr>
+				{% if role.roletofunction_set.all %}
+					test
+				{% endif %}
 				<td> {{ role.roletofunction_num }} </td>
 				<td> <a href="{{ role.id }}" >{{ role.name }} </a> </td>
 				<td> {{ role.description }} </td>

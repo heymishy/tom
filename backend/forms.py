@@ -18,7 +18,7 @@ class CapabilityForm(forms.ModelForm):
 	name = forms.CharField(max_length=255, help_text="Please enter a name for the capability")
 	description = forms.CharField(max_length=255, help_text="Please enter a description for the capability")
 	#status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
-	#capability_num = models.DecimalField(null=True, max_digits=5, decimal_places=4, blank=True)
+	capability_num = forms.DecimalField(max_digits=5, decimal_places=4, help_text="Enter a number")
 	#project = models.ManyToManyField(Project, null=True)
 	#level = models.CharField(max_length=1, choices=LEVELS_CHOICES, default="Approved")
 	#domain = models.ManyToManyField(Domain)

@@ -22,8 +22,9 @@ class FunctionDetail(DetailView):
 	context_object_name = 'function'
 	def get_queryset(self):
 		"""return list of functions"""
-		return Function.objects.order_by('id')
-	
+		#return Function.objects.order_by('id')
+		return Function.objects.filter(capability=self.kwargs['pk'])
+
 
 class CapabilityList(ListView):
 	model = Capability
@@ -53,7 +54,7 @@ class Add_Capability(CreateView):
 	template_name = 'backend/add_capability.html'
 	#form_class = Add_Capability_Form
 	model = Capability
-	fields = ['name', 'description']
+	fields = ['name', 'description', 'capability_numx']
 	#success_url = reverse_lazy('projects')
 
 ''' old form view 
