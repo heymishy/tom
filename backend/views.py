@@ -51,7 +51,20 @@ class CapabilityDetail(ListView):
 class RoleList(ListView):
 	model = Role
 	context_object_name = 'role_list'
-
+	def get_queryset(self):
+		self.project = self.kwargs.get("role_project", None)
+		return Role.objects.filter(project=self.project)
+	'''
+	def get_context_data(self, **kwargs):
+	 	context = super(RoleList, self).get_context_data(**kwargs)
+		if 'role_function' in kwargs:  #this is how you can get function_id's data from url
+			_id = int(kwargs['function_id'] or '0')
+		else:
+ 			_id = 0
+		function =  Role.objects.get(id=_id)
+		context['role_function'] = RoletoFunction.objects.filter(function=function)
+		return context
+	'''
 class ProjectList(ListView):
 	model = Project
 	context_object_name = 'proj_list'
