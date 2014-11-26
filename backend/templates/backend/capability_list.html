@@ -5,49 +5,52 @@
 
 
 {% block content %}
-
-{% if capability_list %}
 	
 <br><br><br>	
 <h1>Capabilities</h1>
-<p>The following lists the capabilities and their associated functions: </p>
+<p>The following lists the capabilities and their associated functions for <strong>{{capability_list.name }}</strong> : </p>
+<!-- template copied from project detail.html template -->
+{% if capability_list %}
+
 	{% for cap in capability_list %}
-
-	<h3> {{ cap.name }} - Level {{cap.level }} </h3>
 	
-		{% if cap.function_set.all %}
+	{% if forloop.first %}<div class="row">{% endif %}
+	<div class="col-xs-4">
 
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<td>Function</td>
-				<td>Description</td>
-				<td>Status</td>
-				<td>..</td>
-			</tr>
-		</thead>
-		<tbody>
-			
-			<tr>
-			
-			{% for function in cap.function_set.all %} 
-				<td> {{ function.name }} </td>
-				<td> {{ function.description }} </td>
-				<td> {{ function.status }} </td>
-				<td> {{ ..}}</td>
-			</tr>
-			{% endfor %}
+	<div class="panel panel-default h">
+		<div class="panel-heading"> 
+			<h3 class="panel-title">{{ cap.name }}</h3>
+		</div>
 
-		</tbody>  
-	</table>
+	{% if cap.function_set.all %}
+
+	{% for function in cap.function_set.all %} 
+		<div class="panel-body">
+			<a href="functions/{{ function.id }}"> {{ function.name }} </a>
+		</div>
+	{% endfor %}
+	</div>
+
+	<div class="panel-body">
+		<a href="/backend/capabilities/add/">Add new capability</a> <br>
+	</div>
+	<br>
 	{% else %}
-		<P>No functions for this capability</P>
-	{% endif %}
 	
+	<div class="panel-body">No functions for this capability</div>
+	</div>
+		<div class="panel-body">
+		<a href="/backend/capabilities/add/">Add new capability</a> <br>
+	</div>
+	{% endif %}
+	</div>
+	 	{% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+    	{% if forloop.last %}</div>{% endif %}
 	{% endfor %}
 
 {% else %}
-	<p>No capabilities are available</p>
+	<p>No projects are available</p>
 {% endif %}
+</div>
 
 {% endblock %}

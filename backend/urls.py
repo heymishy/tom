@@ -2,10 +2,11 @@ from django.conf.urls import patterns, url
 from backend import views
 
 urlpatterns = patterns('',
-	# /backend/functions
-	url(r'^functions/$', views.FunctionList.as_view(), name='functions'),
+	# /backend//1/functions
+	#url(r'^functions/$', views.FunctionList.as_view(), name='functions'),
+	url(r'^projects/(?P<function_project>\d+)/functions$', views.FunctionList.as_view(), name='function_list'),
 	# /backend/capabilities
-	url(r'^capabilities/$', views.CapabilityList.as_view(), name='functions'),
+	url(r'^projects/(?P<capability_project>\d+)/capabilities/$', views.CapabilityList.as_view(), name='capability_list'),
 	# /backend/capabilities/add - Add capabilities
 	url(r'^capabilities/add/$', views.Add_Capability.as_view(), name='add_capability'),
 	# /functions/1

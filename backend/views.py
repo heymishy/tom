@@ -21,14 +21,32 @@ class FunctionDetail(DetailView):
 	template_name = 'backend/function_detail.html'
 	context_object_name = 'function'
 	def get_queryset(self):
-		"""return list of functions"""
-		#return Function.objects.order_by('id')
-		return Function.objects.filter(capability=self.kwargs['pk'])
-
+	#	"""return list of functions"""
+		#self.function = get_object_or_404(Function, name=self.args[0])
+		#return Function.objects.filter(id=self.function)
+		return Function.objects.order_by('id')
+		#return Function.objects.filter(id=self.request.GET.get('id'))
+	def get_context_data(self, **kwargs):
+		context = super(FunctionDetail, self).get_context_data(**kwargs)
+		_id = 0
+		if 'function_id' in kwargs:  #this is how you can get function_id's data from url
+			_id = int(kwargs['function_id'] or '0')
+		function =  Function.objects.get(id=_id)
+		context['role_function'] = RoletoFunction.objects.filter(function=function)
+		return context
 
 class CapabilityList(ListView):
 	model = Capability
 	context_object_name = 'capability_list'
+
+	def get_queryset(self):
+		self.project = self.kwargs.get("capability_project", None)
+		return Capability.objects.filter(project=self.project)
+
+class CapabilityDetail(ListView):
+	model = Capability
+	context_object_name = 'capability_detail'
+
 
 class RoleList(ListView):
 	model = Role
