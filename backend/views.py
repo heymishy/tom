@@ -52,19 +52,9 @@ class RoleList(ListView):
 	model = Role
 	context_object_name = 'role_list'
 	def get_queryset(self):
-		self.project = self.kwargs.get("role_project", None)
+		self.project = self.kwargs.get("role_project")
 		return Role.objects.filter(project=self.project)
-	'''
-	def get_context_data(self, **kwargs):
-	 	context = super(RoleList, self).get_context_data(**kwargs)
-		if 'role_function' in kwargs:  #this is how you can get function_id's data from url
-			_id = int(kwargs['function_id'] or '0')
-		else:
- 			_id = 0
-		function =  Role.objects.get(id=_id)
-		context['role_function'] = RoletoFunction.objects.filter(function=function)
-		return context
-	'''
+
 class ProjectList(ListView):
 	model = Project
 	context_object_name = 'proj_list'
@@ -85,22 +75,5 @@ class Add_Capability(CreateView):
 	template_name = 'backend/add_capability.html'
 	#form_class = Add_Capability_Form
 	model = Capability
-	fields = ['name', 'description', 'capability_numx']
+	fields = ['name', 'description', 'status', 'capability_num', 'project', 'domain']
 	#success_url = reverse_lazy('projects')
-
-''' old form view 
-def add_capability(request):
-	# A HTTP POST?
-    if request.method == 'POST':
-        form = CapabilityForm(request.POST)
-
-        if form.is_valid():
-        	form.save(commit=True)
-        	return ProjectDetail(request)
-        else:
-        	print form.errors
-    else:
-    	form = CapabilityForm()
-
-    return render(request, 'backend/add_capability.html', {'form': form})
-'''

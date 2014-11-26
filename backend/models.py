@@ -31,11 +31,11 @@ class Domain(models.Model):
 	    return self.name	
 
 class Capability(models.Model):
-	name = models.CharField(max_length=255)
-	description = models.CharField(max_length=255, blank=True)
-	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
-	capability_num = models.DecimalField(max_digits=5, decimal_places=2)
-	project = models.ManyToManyField(Project, null=True)
+	name = models.CharField(max_length=255, help_text="Name")
+	description = models.CharField(max_length=255, blank=True, help_text="Description")
+	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved", help_text="Status")
+	capability_num = models.DecimalField(max_digits=5, decimal_places=2, help_text="Number")
+	project = models.ManyToManyField(Project, null=True, help_text="Project")
 
 	LEVELS_CHOICES = (
 		('0', 'Level 0'),
@@ -44,9 +44,9 @@ class Capability(models.Model):
 		('3', 'Level 3'),
 		)
 
-	level = models.CharField(max_length=1, choices=LEVELS_CHOICES, default="Approved")
-	domain = models.ManyToManyField(Domain)
-	created_by = models.ForeignKey(User, default=0)
+	level = models.CharField(max_length=1, choices=LEVELS_CHOICES, help_text="Level")
+	domain = models.ManyToManyField(Domain, help_text="Domain")
+	created_by = models.ForeignKey(User, default=0, help_text="Created by")
 
 	class Meta:
 		verbose_name_plural = "Capabilities"

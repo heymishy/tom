@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="panel-body">
-		<a href="/backend/capabilities/add/">Add new capability</a> <br>
+		<a href="/backend/{{cap.id}}/capabilities/add/">Add new capability {{cap.project_set|first}}</a> <br>
 	</div>
 	<br>
 	{% else %}
@@ -40,14 +40,16 @@
 	<div class="panel-body">No functions for this capability</div>
 	</div>
 		<div class="panel-body">
-		<a href="/backend/capabilities/add/">Add new capability</a> <br>
+		<a href="/backend/{{ capability_list.id }}capabilities/add/">Add new capability {{cap.project}}</a> <br>
 	</div>
 	{% endif %}
 	</div>
 	 	{% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
     	{% if forloop.last %}</div>{% endif %}
 	{% endfor %}
-
+	<br>
+<h3>Roles for above capabilities </h3>
+<p><a href="../roles/">Click here for details</a></p>
 {% else %}
 	<p>No projects are available</p>
 {% endif %}

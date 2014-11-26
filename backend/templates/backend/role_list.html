@@ -11,24 +11,22 @@
 <h3> Roles </h3>
 {% if role_list %}
 
-	<h2>Role list</h2>
+	<h2>Roles defined for {{ role_list.project|first }}</h2>
 
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<td>Role</td>
 					<td>Description</td>
-					<td>Status</td>
-					<td>Performs</td>
 				</tr>
 			</thead>
 			<tbody>
 				{% for role in role_list %}	
+				{% if role.status == "Approved" %}
 				<tr>
 					<td> {{ role.name }} </td>
 					<td> {{ role.description }} </td>
-					<td> {{ role.status }} </td>
-					<td> {% for p in role.performs_func_set.all %} {{ p.name }} {% endfor %} </td>
+				{% endif %}	
 				</tr>
 				{% endfor %}
 			</tbody>  
@@ -38,24 +36,27 @@
 		<h2>Role list by capability</h2>
 
 		{% for role in role_list %}	
-
-		<p> {{ role.name }} </p> 
-		<p> </p>
-
+			{% if role.status == "Approved" %}
+				<p> <strong>{{ role.name }} </strong></p> 
+			{% endif %}
+		
 		{% if role.roletofunction_set.all %}
-
+	
 		<table class="table table-striped">
 			<thead>
 				<tr>
+				
 					<td>Role</td>
 					<td>Description</td>
 				</tr>
 			</thead>
 			<tbody>
-				{% for p in role.roletofunction_set.all %} 
 				<tr>
+				{% for p in role.roletofunction_set.all %} 
+				{% if p.name|length > 0 %}
 					<td> {{ p.name }} </td>
 					<td> {{ p.allocation }} </td>
+					{% endif %}
 				</tr>
 			</tbody>
 		
@@ -79,22 +80,23 @@
 				<tr> 
 					<td>.</td>
 					{% for role in role_list %}	
-
-						<td> {{ role.name }} </td>
-					
+						{% if role.status == "Approved" %}
+							<td> {{ role.name }} </td>
+						{% endif %}
 					{% endfor %}
 				</tr>
 			</thead>
 			<tbody> 
 				<tr> 	
-					{% for role in role_list %} {% for p in role.roletofunction_set.all %}
-					<td>  {{ p.name }} </td> 
-					<td> {{ p.allocation }}	</td>
-					<!-- <td> {{ p.allocation }}</td> --> 
-				</tr>
-					{% endfor %} 
-					{% endfor %}
-				
+						{% for role in role_list %} 
+							{% for p in role.roletofunction_set.all %}
+								{% if p.name|length > 0 %}
+									<td>  {{ p.name }} </td> 
+									<td> {{ p.allocation }}	</td>
+								{% endif %}
+					</tr>
+								{% endfor %} 
+							{% endfor %}
 			</tbody>	
 		</table>	
 

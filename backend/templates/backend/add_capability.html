@@ -7,7 +7,7 @@
 {% block content %} -->
 	<h3>Add new capability</h3>
 <br><br><br>
-<form id="capability-form" method="post" action="/backend/capabilities/add/">
+<form id="capability-form" method="post" action="/backend/{{proj}}capabilities/add/">
 
 	{% csrf_token %}
 	{% for hidden in form.hidden_fields %}
