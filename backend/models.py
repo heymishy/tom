@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-
+from django.core.urlresolvers import reverse
 from django.db import models
 
 
@@ -133,12 +133,13 @@ class Proces(models.Model):
 	    return self.name
 
 class Resource(models.Model):
-	resource_name = models.CharField(max_length=255)
+	name = models.CharField(max_length=255)
 	title = models.CharField(max_length=255)
 	status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Approved")
 	resource_num = models.DecimalField(max_digits=5, decimal_places=4, null=True, blank=True)
 	created_by = models.ForeignKey(User, default=0)
 	project = models.ManyToManyField(Project, null=True)
+	role = models.ManyToManyField(Role, null=True, blank=True)
 
 	def __str__(self):
 	    return self.name

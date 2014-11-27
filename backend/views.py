@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 
-from backend.models import Function, Role, RoletoFunction, Capability, Project
+from backend.models import Function, Role, RoletoFunction, Capability, Project, Resource
 from backend.forms import FunctionForm, CapabilityForm
 
 class FunctionList(ListView):
@@ -70,6 +70,15 @@ class ProjectDetail(DetailView):
 
 	def get_queryset(self):
 		return Project.objects.order_by('id')
+
+class ResourceList(ListView):
+	model = Resource
+	context_object_name = 'resource_list'
+	template_name = 'backend/resource_list.html'
+
+	def get_queryset(self):
+		self.project = self.kwargs.get("resource_project", None)
+		return Resource.objects.filter(project=self.project)
 
 class Add_Capability(CreateView):
 	template_name = 'backend/add_capability.html'

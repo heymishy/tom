@@ -13,6 +13,8 @@ urlpatterns = patterns('',
 	url(r'^projects/(?P<pk>\d+)/functions/(?P<function_id>\d+)/$', views.FunctionDetail.as_view(), name='function_detail'),
 	# /backend/projects/1/roles
 	url(r'^projects/(?P<role_project>\d+)/roles/$', views.RoleList.as_view(), name='roles'),	
+	# /backend/projects/1/roles
+	url(r'^projects/(?P<resource_project>\d+)/resources/$', views.ResourceList.as_view(), name='resources'),	
 	# /backend/projects
 	url(r'^projects/$', views.ProjectList.as_view(), name='projects'),	
 	# /backend/projects/[proj_name]/
