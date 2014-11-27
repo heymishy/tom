@@ -26,13 +26,15 @@
 
 	{% for function in cap.function_set.all %} 
 		<div class="panel-body">
-			<a href="functions/{{ function.id }}"> {{ function.name }} </a>
+			<a href="{% url 'backend:function-detail' cap.project.first.id function.id%} "> {{ function.name }} </a>
 		</div>
 	{% endfor %}
 	</div>
 
 	<div class="panel-body">
-		<a href="/backend/{{cap.id}}/capabilities/add/">Add new capability {{cap.project_set|first}}</a> <br>
+		{% for function in cap.function_set.all %}  {% if forloop.first %}
+		<a href="{% url 'backend:add-capability' cap.project.first.id %}">Add new capability {{cap.project_set|first}}</a> {% endif %}
+		{% endfor %} <br>
 	</div>
 	<br>
 	{% else %}
@@ -40,16 +42,24 @@
 	<div class="panel-body">No functions for this capability</div>
 	</div>
 		<div class="panel-body">
-		<a href="/backend/{{ capability_list.id }}capabilities/add/">Add new capability {{cap.project}}</a> <br>
+		{% for function in cap.function_set.all %}  {% if forloop.first %}
+		<a href="{% url 'backend:add-capability' cap.project.first.id %}">Add new capability {{cap.project}}</a> <br>
+		{% endif %}
+		{% endfor %}
 	</div>
 	{% endif %}
 	</div>
 	 	{% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
     	{% if forloop.last %}</div>{% endif %}
-	{% endfor %}
+{% endfor %}
+
 	<br>
 <h3>Roles for above capabilities </h3>
-<p><a href="../roles/">Click here for details</a></p>
+{% for cap in capability_list %} 
+	{% if forloop.first %}
+	<a href="{% url 'backend:roles' cap.project.first.id %}">Click here for details</a>
+	{% endif %}
+{% endfor %}
 {% else %}
 	<p>No projects are available</p>
 {% endif %}
