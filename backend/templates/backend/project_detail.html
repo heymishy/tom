@@ -27,9 +27,12 @@
 	{% if cap.function_set.all %}
 
 	{% for function in cap.function_set.all %} 
+
+	{% if function.future_status == True %}
 		<div class="panel-body">
 			<a href="functions/{{ function.id }}"> {{ function.name }} </a>
 		</div>
+		{% endif %}
 	{% endfor %}
 	</div>
 

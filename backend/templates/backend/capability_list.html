@@ -10,11 +10,15 @@
 <h1>Capabilities</h1>
 <p>The following lists the capabilities and their associated functions for <strong>{{capability_list.name }}</strong> : </p>
 <!-- template copied from project detail.html template -->
-{% if capability_list %}
+{% if function_list %} <!-- second conetext -->
 
+{% endif %}
+{% if capability_list %}
+<button type="button" class="btn btn-primary btn-xs">Show/Hide Future State</button>
 	{% for cap in capability_list %}
-	
+	{% if cap.future_status == True %}
 	{% if forloop.first %}<div class="row">{% endif %}
+
 	<div class="col-xs-4">
 
 	<div class="panel panel-default h">
@@ -23,11 +27,16 @@
 		</div>
 
 	{% if cap.function_set.all %}
-
 	{% for function in cap.function_set.all %} 
+		{% if function.future_status == True %}
 		<div class="panel-body">
 			<a href="{% url 'backend:function-detail' cap.project.first.id function.id%} "> {{ function.name }} </a>
 		</div>
+		{% else %}
+		<div class="panel-body">
+			<div class="class='future-state-only'">≈<s>{{ function.name }}</s> </div>
+		</div>
+		{% endif %}
 	{% endfor %}
 	</div>
 
@@ -51,6 +60,8 @@
 	</div>
 	 	{% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
     	{% if forloop.last %}</div>{% endif %}
+
+    	{% endif %}
 {% endfor %}
 
 	<br>

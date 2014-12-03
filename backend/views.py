@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect,HttpResponseForbidden
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
@@ -34,7 +34,15 @@ class FunctionDetail(DetailView):
 		function =  Function.objects.get(id=_id)
 		context['role_function'] = RoletoFunction.objects.filter(function=function)
 		return context
+'''
+class CapabilityList(ListView):
+	model = Capability
+	context_object_name = 'capability_list'
 
+	def get_queryset(self, **kwargs):
+		self.project = self.kwargs.get("capability_project", None)
+		return Capability.objects.filter(project=self.project)
+'''
 class CapabilityList(ListView):
 	model = Capability
 	context_object_name = 'capability_list'
@@ -42,6 +50,12 @@ class CapabilityList(ListView):
 	def get_queryset(self):
 		self.project = self.kwargs.get("capability_project", None)
 		return Capability.objects.filter(project=self.project)
+	def get_context_data(self, **kwargs):
+		# Call the base implementation first to get a context
+		context = super(CapabilityList, self).get_context_data(**kwargs)
+		context['function_list'] = Function.objects.all()
+		return context
+	 	
 
 class CapabilityDetail(ListView):
 	model = Capability
@@ -79,10 +93,21 @@ class ResourceList(ListView):
 	def get_queryset(self):
 		self.project = self.kwargs.get("resource_project", None)
 		return Resource.objects.filter(project=self.project)
-
+'''
+def Add_Capability(request):
+	 if request.method == 'POST':
+	 	form = CapabilityForm(request.POST)
+	 	if form.is_valid():
+	 		form.save(commit=True)
+	 		return index(request)
+	 	else:
+			print form.errors
+	else:
+		form = CapabilityForm()
+		return render(request, 'backend/projects/1/capabilities', {'form': form})
+'''
 class Add_Capability(CreateView):
 	template_name = 'backend/add_capability.html'
 	#form_class = Add_Capability_Form
 	model = Capability
 	fields = ['name', 'description', 'status', 'capability_num', 'project', 'domain']
-	#success_url = reverse_lazy('projects')

@@ -6,8 +6,12 @@
 
 {% block content %} -->
 	<h3>Add new capability</h3>
+	{% if get_proj_id %}
+	<p>{{form.fields.project.first}}</p>
+	{% endif %}
+	<p>{{proj_id.proj_id}}</p>
 <br><br><br>
-<form id="capability-form" method="post" action="{% url 'backend:capability-list' self.proj %}">
+<form id="capability-form" method="post" action="backend/projects/1/capabilities">
 
 	{% csrf_token %}
 	{% for hidden in form.hidden_fields %}

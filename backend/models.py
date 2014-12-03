@@ -47,6 +47,9 @@ class Capability(models.Model):
 	level = models.CharField(max_length=1, choices=LEVELS_CHOICES, help_text="Level")
 	domain = models.ManyToManyField(Domain, help_text="Domain")
 	created_by = models.ForeignKey(User, default=0, help_text="Created by")
+	current_status = models.BooleanField(default=True)
+	future_status = models.NullBooleanField()
+
 
 	class Meta:
 		verbose_name_plural = "Capabilities"
@@ -54,9 +57,7 @@ class Capability(models.Model):
 	
 	def __str__(self):
 	    return self.name
-	
-	def get_absolute_url(self):
-		return reverse('project_detail', kwargs={'pk': self.pk})
+
 
 
 class Function(models.Model):
@@ -68,6 +69,8 @@ class Function(models.Model):
 	performs_role = models.ManyToManyField('Role', through='RoletoFunction', blank=True, null=True)
 	#project = models.ManyToManyField(Project, null=True)
 	created_by = models.ForeignKey(User, default=0)
+	current_status = models.BooleanField(default=True)
+	future_status = models.NullBooleanField()
 
 	def __str__(self):  
 	    return self.name

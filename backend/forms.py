@@ -27,9 +27,3 @@ class CapabilityForm(forms.ModelForm):
         # Provide an association between the ModelForm and a model
 		model = Capability
                 fields = ('name', 'description',)
-	def form_valid(self, form):
-		proj = form.save(commit=False)
-		proj.proj_id = self.kwargs['capability_project']
-		proj.save()
-		self.object = proj
-		return HttpResponseRedirect(self.get_success_url())

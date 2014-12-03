@@ -25,6 +25,8 @@ class CapabilityAdmin(admin.ModelAdmin):
 		('Description', {'fields': ['description'],}),
 		('Status',		{'fields': ['status']}),
 		('Level', 		{'fields': ['level']}),
+		('Shown in Current', 		{'fields': ['current_status']}),
+		('Present in Future', 		{'fields': ['future_status']}),
 		('Domain', 		{'fields': ['domain']}),
 		('Project', 	{'fields': ['project']}),
 		('Created By', 	{'fields': ['created_by']}),
